@@ -6,6 +6,6 @@
 Control-h:backward-word
 Control-l:forward-word
 
-# Control-i is TAB, but let's use it to kill word forword
-Control-i:kill-word
+# kill word forword
+Control-g:kill-word
 
