@@ -1,0 +1,3 @@
+# tmux
+./tmux/.tmux.conf.symlink => ~/.tmux.conf
+./bash/.inputrc.symlink => ~/.inputrc

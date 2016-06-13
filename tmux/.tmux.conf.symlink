@@ -1,0 +1,104 @@
+# Reset prefix key from C-b to C-s
+unbind C-b
+set -g prefix C-s
+# Allow previous C-s to work by hitting it twice
+bind -r C-s send-prefix
+
+# Add key binding to reload config file
+bind r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded"
+
+# Add key bindings for selecting panes
+bind C-h select-pane -L
+bind C-j select-pane -D
+bind C-k select-pane -U
+bind C-l select-pane -R
+
+# Add key bindings for creating panes
+bind - split-window -v  -c '#{pane_current_path}'
+bind \ split-window -h  -c '#{pane_current_path}'
+
+# For better colors in vim
+set -g default-terminal "screen-256color"
+
+# For emacs style editing in tmux command prompt
+set -g status-keys "emacs"
+
+# Color scheme of tmux
+# Color of tmux status bar
+set -g status-bg '#666666'
+set -g status-fg '#aaaaaa'
+# Color of pane line splits
+set -g pane-border-fg '#666666'
+set -g pane-border-bg '#666666'
+set -g pane-active-border-fg white
+set -g pane-active-border-bg white
+set -g status-attr bright
+# Color of messages (ex. conf reloaded message)
+set -g message-fg red
+set -g message-bg black
+# active window title colors
+setw -g window-status-current-fg '#666666'
+setw -g window-status-current-bg white
+setw -g window-status-current-attr bright
+
+# Set width of the left hand side of the status bar
+set -g status-left-length 50
+# Set the command of the right hand side of the status bar
+set -g status-right " #(date '+%a, %b %d - %I:%M') "
+
+# Fine adjustment (1 or 2 cursor cells per bump)
+bind -n S-Left resize-pane -L 2
+bind -n S-Right resize-pane -R 2
+bind -n S-Down resize-pane -D 1
+bind -n S-Up resize-pane -U 1
+
+# Rebind new window to open with the same path
+bind c new-window -c "#{pane_current_path}"
+
+# Allow windows to be numbered starting from 1
+set -g base-index 1
+# Allow panes to be numbered starting from 1
+set -g pane-base-index 1
+set -g renumber-windows on
+setw -g xterm-keys on
+
+# Break current pane into its own window
+bind b break-pane -d
+
+# Choose which window to go to
+bind C-t choose-tree
+bind t choose-tree
+
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# Setup 'v' to begin selection as in Vim
+# See https://robots.thoughtbot.com/tmux-copy-paste-on-os-x-a-better-future
+bind -t vi-copy v begin-selection
+bind -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+# Update default binding of `Enter` to also use copy-pipe
+unbind -t vi-copy Enter
+bind -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+# Quickly view system & process info in htop
+# bind h split-window -h "htop"
+# bind t split-window -h "vim ~/todo.md"
+# Let's set one up for editing tmux.conf
+
+# Allow tmux to understand mouse clicks
+setw -g mode-mouse on
+set -g mouse-select-pane on
+set -g mouse-resize-pane on
+set -g mouse-select-window on
+
+# Center the window screen and turn on monitor activity
+set -g status-justify centre
+setw -g monitor-activity on
+set -g visual-activity on
+
+# Swap window positions
+bind -n C-S-Left swap-window -t -1
+bind -n C-S-Right swap-window -t +1
+
+# Set history limit for scroll bac
+set-option -g history-limit 10000

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# References:
+# http://stackoverflow.com/questions/10929453/bash-scripting-read-file-line-by-line
+# https://github.com/orrsella/dotfiles/blob/master/setup-symlinks.sh
+
+while IFS='' read -r line || [ -n "$line" ]; do
+  if [[ ! $line == \#* ]] && [ -n "$line" ]; then
+    # Get source which is the string before =>
+    src=${line% =>*}
+    # Replace ./ with current path
+    src=${src//.\//"$PWD"\/}
+    # Get destination which is the string after =>
+    dest=${line#*=> }
+    # Replace ~/ with $HOME
+    dest=${dest//\~/"$HOME"}
+
+    # Symlink
+    ln -s $src $dest
+  fi
+done < links

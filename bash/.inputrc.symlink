@@ -1,0 +1,6 @@
+"\e[1;5D":backward-word
+"\e[1;5C":forward-word
+Control-h:backward-word
+Control-l:forward-word
+Control-f:kill-word
+
