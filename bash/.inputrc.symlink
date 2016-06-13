@@ -1,6 +1,11 @@
+# Control + Arrow keys to move between words
 "\e[1;5D":backward-word
 "\e[1;5C":forward-word
+
+# Control + [jk] to move between words like vim
 Control-h:backward-word
 Control-l:forward-word
-Control-f:kill-word
+
+# Control-i is TAB, but let's use it to kill word forword
+Control-i:kill-word
 
